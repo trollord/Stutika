@@ -24,12 +24,8 @@ export default function PracticeAreasPage() {
 
       <PageHero
         kicker="Practice Areas"
-        title="Eight practices, advised end to end"
+        title="Practices, advised end to end"
         lede="From structuring and due diligence through documentation, negotiation and execution, and where required, ongoing legal and regulatory support."
-        meta={`${practices.length} practices · ${practices.reduce(
-          (total, practice) => total + practice.items.length,
-          0,
-        )} service lines`}
       />
 
       {practices.map((practice, i) => (
@@ -37,12 +33,11 @@ export default function PracticeAreasPage() {
           key={practice.slug}
           id={practice.slug}
           tone={i % 2 === 0 ? "paper-hi" : "dark"}
-          index={practice.index}
           label={practice.short}
         >
           <div className="sec-head">
             <Reveal>
-              <span className="u-label">Practice {practice.index}</span>
+              <span className="u-label">Practice Area</span>
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="u-display u-h2" style={{ maxWidth: "15ch" }}>

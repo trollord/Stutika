@@ -21,9 +21,9 @@ npm run lint
 ```
 app/
   layout.tsx            fonts, metadata, header/footer, disclaimer gate
-  page.tsx              home — eight numbered bands, 01…08
+  page.tsx              home — the numbered section bands, 01…08
   about/                the firm, principles, why Obiter
-  practice-areas/       all eight practices in full
+  practice-areas/       every practice in full
   startup-advisory/
   industries/
   founder/
@@ -61,6 +61,11 @@ A monochrome editorial system defined in `app/globals.css`:
 | `--ink` | `#1a1a19` | primary text on light |
 | `--accent` | `#8c2f26` | used sparingly, for marks only |
 
+Nothing on the site is numbered except the section markers in each band's rail
+and the numbered clauses of the legal documents. Practice areas, service lines
+and sectors are deliberately unnumbered, and the site carries no counts or
+statistics.
+
 Type: **Archivo** for uppercase display, **Inter** for text and micro-labels,
 **Instrument Serif** for the wordmark and pull statements.
 
@@ -91,16 +96,9 @@ optional dashed list, following paragraphs and an optional contact block. Both
 pages render through `components/LegalDoc.tsx`, which pairs the clauses with a
 sticky contents index that highlights whatever you are reading.
 
-The text is reproduced verbatim from the supplied Word documents.
-
-> **Unresolved: which domain is correct?**
-> The Privacy Policy and Terms & Conditions refer to `www.obiterlegal.in` and
-> `stutika@obiterlegal.in`. The main website content document uses
-> `stutika@obiterlegal.com`, which is what `site.email` holds and what the
-> contact page and footer show. Both currently appear on the site.
-> To settle it, change `legalContactEmail` in `lib/content.ts` and the two
-> `www.obiterlegal.in` mentions in the `intro` arrays just below it (or change
-> `site.email` instead, if `.in` is the right one).
+The text is reproduced verbatim from the supplied Word documents. The whole
+site uses the `obiterlegal.in` domain; `legalContactEmail` simply follows
+`site.email`, so there is one address to change.
 
 ## Enquiry form — needs configuring before launch
 
@@ -112,8 +110,8 @@ Create `.env.local`:
 
 ```
 RESEND_API_KEY=re_...
-CONTACT_FROM="Obiter Legal <website@obiterlegal.com>"   # must be a verified sender
-CONTACT_TO=stutika@obiterlegal.com                      # optional, defaults to the address in content.ts
+CONTACT_FROM="Obiter Legal <website@obiterlegal.in>"   # must be a verified sender
+CONTACT_TO=stutika@obiterlegal.in                      # optional, defaults to the address in content.ts
 ```
 
 The route validates input, caps field lengths, and drops bot submissions via a
@@ -124,10 +122,11 @@ else depends on Resend.
 
 ## Before going live
 
-- [ ] Set `site.url` in `lib/content.ts` to the production domain (it feeds
-      `metadataBase`, the sitemap and `robots.txt`).
-- [ ] Resolve the `obiterlegal.in` / `obiterlegal.com` conflict described above.
 - [ ] Configure the enquiry form environment variables above.
-- [ ] Replace the `SR` monogram plate on the home and founder pages with a
-      photograph of Stutika Rathi if one becomes available
+- [ ] Replace the `SRG` monogram plate on the home and founder pages with a
+      photograph of Stutika Rathi Gupta once one is supplied
       (`components/Plate.tsx`, `variant="monogram"`).
+- [ ] Apply the firm's logo in place of the type-set wordmark
+      (`components/Wordmark.tsx`, and `app/icon.svg` for the favicon).
+- [ ] `site.url` is set to `https://obiterlegal.in`; confirm before launch, as it
+      feeds `metadataBase`, the sitemap and `robots.txt`.

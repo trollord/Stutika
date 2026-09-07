@@ -18,7 +18,6 @@ export default function IndustriesPage() {
         kicker="Industries"
         title="Advice shaped by the sector"
         lede={industries.lede}
-        meta={`${industries.items.length} sectors`}
       />
 
       <section
@@ -29,7 +28,7 @@ export default function IndustriesPage() {
         <Marquee items={industries.items.map((item) => item.title)} />
       </section>
 
-      <Band id="sectors" tone="dark" index="01" label="Sectors">
+      <Band id="sectors" tone="dark" label="Sectors">
         <div className="sec-head">
           <Reveal>
             <span className="u-label">Where we work</span>
@@ -50,14 +49,14 @@ export default function IndustriesPage() {
         </div>
       </Band>
 
-      <Band id="practices" tone="paper-hi" index="02" label="Practices" tight>
+      <Band id="practices" tone="paper-hi" label="Practices" tight>
         <div className="sec-head">
           <Reveal>
             <span className="u-label">Across every sector</span>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="u-display u-h2" style={{ maxWidth: "16ch" }}>
-              Eight practices
+              Our practices
             </h2>
           </Reveal>
         </div>

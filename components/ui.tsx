@@ -96,10 +96,8 @@ export function SectionHead({
 
 export function SpecGrid({
   items,
-  startIndex = 1,
 }: {
   items: { title: string; body: string }[];
-  startIndex?: number;
 }) {
   return (
     <div className="spec-grid">
@@ -110,9 +108,7 @@ export function SpecGrid({
           delay={Math.min(i, 5) * 0.045}
           y={16}
         >
-          <span className="spec__idx">
-            {String(startIndex + i).padStart(2, "0")}
-          </span>
+          <span className="spec__rule" aria-hidden="true" />
           <h3 className="u-h3">{item.title}</h3>
           <p className="spec__body">{item.body}</p>
         </Reveal>

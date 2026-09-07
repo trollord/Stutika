@@ -81,7 +81,7 @@ export default function AboutPage() {
         <SectionHead
           kicker="Why Obiter Legal"
           title="What clients can expect"
-          lede="Five commitments that shape how a matter is run."
+          lede="The commitments that shape how a matter is run."
         />
         <SpecGrid items={whyObiter} />
         <div style={{ marginTop: 44 }}>

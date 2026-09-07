@@ -64,7 +64,7 @@ export default function FounderPage() {
                 <Plate
                   variant="monogram"
                   ratio="4 / 5"
-                  initials="SR"
+                  initials="SRG"
                   seed={11}
                 />
               </Reveal>

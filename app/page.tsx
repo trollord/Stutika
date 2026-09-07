@@ -99,28 +99,6 @@ export default function HomePage() {
                   />
                 </Reveal>
               </div>
-
-              <Reveal delay={0.78}>
-                <div className="hero__meta">
-                  <ul>
-                    <li>
-                      <span className="u-label">Practices</span>
-                      <b>Eight core areas</b>
-                    </li>
-                    <li>
-                      <span className="u-label">Office</span>
-                      <b>Ballard Estate, Mumbai</b>
-                    </li>
-                    <li>
-                      <span className="u-label">Engagement</span>
-                      <b>Senior level throughout</b>
-                    </li>
-                  </ul>
-                  <span className="scroll-cue" aria-hidden="true">
-                    Scroll
-                  </span>
-                </div>
-              </Reveal>
             </div>
           </div>
         </div>
@@ -170,7 +148,7 @@ export default function HomePage() {
         <SectionHead
           kicker="What we do"
           title="Practice Areas"
-          lede="Eight practices, advised end to end — from structuring and diligence through documentation, negotiation and execution."
+          lede="Advised end to end — from structuring and diligence through documentation, negotiation and execution."
         />
 
         <div className="idx">
@@ -180,7 +158,7 @@ export default function HomePage() {
                 href={`/practice-areas#${practice.slug}`}
                 className="idx__row"
               >
-                <span className="idx__num">{practice.index}</span>
+                <span className="idx__rule" aria-hidden="true" />
                 <span>
                   <span
                     className="u-display idx__title"
@@ -215,7 +193,7 @@ export default function HomePage() {
         <SectionHead
           kicker="Approach"
           title="Why Obiter Legal"
-          lede="Five commitments that shape how a matter is run."
+          lede="The commitments that shape how a matter is run."
         />
         <SpecGrid items={whyObiter} />
       </Band>
@@ -239,7 +217,7 @@ export default function HomePage() {
       <Band id="founder" tone="dark" index="06" label="Founder">
         <div className="split" style={{ alignItems: "center" }}>
           <Reveal y={24}>
-            <Plate variant="monogram" ratio="1 / 1" initials="SR" seed={23} />
+            <Plate variant="monogram" ratio="1 / 1" initials="SRG" seed={23} />
           </Reveal>
 
           <div>

@@ -30,7 +30,7 @@ export default function StartupAdvisoryPage() {
         meta="Founders · Emerging businesses · Investors"
       />
 
-      <Band id="lifecycle" tone="dark" index="01" label="Lifecycle" tight>
+      <Band id="lifecycle" tone="dark" label="Lifecycle" tight>
         <div className="split" style={{ alignItems: "center" }}>
           <div className="stack" style={{ gap: 0 }}>
             {STAGES.map((stage, i) => (
@@ -38,16 +38,14 @@ export default function StartupAdvisoryPage() {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "48px minmax(0, 1fr)",
+                    gridTemplateColumns: "40px minmax(0, 1fr)",
                     gap: 18,
-                    alignItems: "baseline",
+                    alignItems: "center",
                     paddingBlock: "18px",
                     borderTop: "1px solid var(--rule-light)",
                   }}
                 >
-                  <span className="u-label">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <span className="idx__rule" aria-hidden="true" />
                   <span
                     className="u-display"
                     style={{
@@ -68,7 +66,7 @@ export default function StartupAdvisoryPage() {
         </div>
       </Band>
 
-      <Band id="scope" tone="paper" index="02" label="Scope">
+      <Band id="scope" tone="paper" label="Scope">
         <div className="sec-head">
           <Reveal>
             <span className="u-label">Our work includes</span>

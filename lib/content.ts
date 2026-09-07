@@ -6,7 +6,6 @@
 export type Item = { title: string; body: string };
 export type Practice = {
   slug: string;
-  index: string;
   title: string;
   /** Condensed label for the vertical rail and section navigation. */
   short: string;
@@ -22,8 +21,8 @@ export const site = {
   tagline: "Commercially Focused Legal Counsel for Business",
   description:
     "Obiter Legal is a boutique law firm advising businesses, founders, investors and creators across corporate, commercial, capital markets, media and entertainment, intellectual property, real estate and regulatory matters.",
-  url: "https://obiterlegal.com",
-  email: "stutika@obiterlegal.com",
+  url: "https://obiterlegal.in",
+  email: "stutika@obiterlegal.in",
   phone: "+91 9004278633",
   phoneHref: "+919004278633",
   address: [
@@ -105,7 +104,6 @@ export const whyObiter: Item[] = [
 export const practices: Practice[] = [
   {
     slug: "corporate-and-commercial",
-    index: "01",
     title: "Corporate and Commercial",
     short: "Corporate",
     lede: "We advise businesses across the legal and commercial issues that arise in their operations, transactions and relationships.",
@@ -150,7 +148,6 @@ export const practices: Practice[] = [
   },
   {
     slug: "capital-markets-and-sme-ipos",
-    index: "02",
     title: "Capital Markets and SME IPOs",
     short: "Capital Markets",
     lede: "We advise issuers, promoters, merchant bankers and other transaction stakeholders on capital raising and public market transactions, with particular experience in SME IPOs.",
@@ -191,7 +188,6 @@ export const practices: Practice[] = [
   },
   {
     slug: "media-and-entertainment",
-    index: "03",
     title: "Media and Entertainment",
     short: "Media",
     lede: "We advise clients across film, television, music and digital media on the legal aspects of content creation, production, financing, exploitation and distribution.",
@@ -232,7 +228,6 @@ export const practices: Practice[] = [
   },
   {
     slug: "intellectual-property",
-    index: "04",
     title: "Intellectual Property",
     short: "Intellectual Property",
     lede: "We advise clients on the ownership, protection, use and commercialisation of intellectual property.",
@@ -262,7 +257,6 @@ export const practices: Practice[] = [
   },
   {
     slug: "real-estate-and-rera-advisory",
-    index: "05",
     title: "Real Estate and RERA Advisory",
     short: "Real Estate",
     lede: "We advise developers, investors, businesses, landlords and other stakeholders on property transactions, development and related regulatory matters.",
@@ -295,7 +289,6 @@ export const practices: Practice[] = [
   },
   {
     slug: "dispute-resolution-and-arbitration",
-    index: "06",
     title: "Dispute Resolution and Arbitration",
     short: "Disputes",
     lede: "We advise and represent clients in commercial, corporate, contractual and regulatory disputes.",
@@ -324,7 +317,6 @@ export const practices: Practice[] = [
   },
   {
     slug: "insolvency-and-restructuring",
-    index: "07",
     title: "Insolvency and Restructuring",
     short: "Insolvency",
     lede: "We advise stakeholders on corporate insolvency, debt resolution and restructuring matters under the Insolvency and Bankruptcy Code and related laws.",
@@ -353,7 +345,6 @@ export const practices: Practice[] = [
   },
   {
     slug: "financial-services-and-regulatory-advisory",
-    index: "08",
     title: "Financial Services and Regulatory Advisory",
     short: "Financial Services",
     lede: "We advise businesses operating within regulated financial sectors, including NBFCs, fintech businesses, payment platforms and other financial services enterprises.",
@@ -447,9 +438,9 @@ export const industries = {
 };
 
 export const founder = {
-  name: "Stutika Rathi",
+  name: "Stutika Rathi Gupta",
   role: "Founder and Principal",
-  lede: "Stutika Rathi is the Founder and Principal of Obiter Legal, with experience advising Indian and international clients on corporate, commercial and transactional matters.",
+  lede: "Stutika Rathi Gupta is the Founder and Principal of Obiter Legal, with experience advising Indian and international clients on corporate, commercial and transactional matters.",
   paragraphs: [
     "Her practice spans corporate and commercial transactions, capital markets, media and entertainment, intellectual property, real estate and regulatory matters, with experience across transactions, advisory mandates and complex negotiations.",
     "She has advised clients on matters including mergers and acquisitions, investments, SME IPOs, intellectual property licensing, media and entertainment transactions, pharmaceutical and regulatory matters and commercial arrangements.",
@@ -508,15 +499,8 @@ export type LegalDocument = {
   sections: LegalSection[];
 };
 
-/**
- * NOTE: the Privacy Policy and Terms & Conditions documents supplied by the firm
- * refer to `obiterlegal.in` / `stutika@obiterlegal.in`, whereas the main website
- * content document uses `stutika@obiterlegal.com` (see `site.email` above).
- * The legal text is reproduced verbatim; change this constant — and the two
- * `www.obiterlegal.in` mentions in the copy below — once the firm confirms which
- * domain is correct.
- */
-export const legalContactEmail = "stutika@obiterlegal.in";
+/** The address the legal documents publish. Kept in step with `site.email`. */
+export const legalContactEmail = site.email;
 
 export const privacyPolicy: LegalDocument = {
   slug: "privacy-policy",
