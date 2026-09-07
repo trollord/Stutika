@@ -47,18 +47,26 @@ lib/
   hooks.ts              scroll/tone/section-spy hooks
 brand/
   obiter-mark.webp          the OL monogram, as supplied — source for the icons
-  obiter-logo.png           horizontal lockup used in the header, footer and gate
+  obiter-logo.png           horizontal lockup, for light backgrounds
+  obiter-logo-invert.png    the same lockup inverted, for dark backgrounds
   obiter-logo-stacked.png   the supplied stacked lockup, for wider slots
 ```
 
 ### The logo
 
-The artwork is dark, so it carries a paper-coloured plate baked into the PNG.
-That way it can never land on a black background — over the light bands the
-plate disappears into the page, and over the dark bands and the footer it reads
-as a paper card. `components/Wordmark.tsx` exports `Logo` (the image) and
-`Wordmark` (the same image linked home); both are used in the header, the footer
-and the disclaimer gate, and the share card embeds it too.
+There are two transparent versions of the lockup, so the mark always sits
+directly on the band with no plate behind it:
+
+- `brand/obiter-logo.png` — the artwork as drawn, for the light bands
+- `brand/obiter-logo-invert.png` — the same mark with its tonal ramp inverted,
+  for the dark bands and the footer
+
+`components/Wordmark.tsx` exports `Logo` (the image) and `Wordmark` (the same
+image linked home). Both take a `variant`: `dark`, `light`, or `auto`. The header
+uses `auto`, which stacks the two and cross-fades between them as the band
+behind it changes, following the `data-tone` attribute SiteHeader already sets.
+The footer is always `light`, the disclaimer gate always `dark`, and the share
+card embeds the dark version.
 
 The supplied lockup stacks the monogram over the wordmark, which leaves the
 words illegible at header height. `brand/obiter-logo.png` is therefore a

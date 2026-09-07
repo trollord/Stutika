@@ -893,11 +893,36 @@ section[id] {
   line-height: 1;
 }
 
-/* The artwork ships with its own paper plate, so height is all that is set. */
+/* Transparent artwork — it sits directly on the band, no plate. */
 .logo {
   display: block;
   height: 40px;
   width: auto;
+}
+
+/* Header only: both tones stacked, cross-faded as the band behind changes. */
+.logo-swap {
+  position: relative;
+  display: block;
+}
+
+.logo-swap .logo {
+  transition: opacity 0.5s var(--ease-io);
+}
+
+.logo-swap .logo--light {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.hdr[data-tone="dark"] .logo-swap .logo--dark {
+  opacity: 0;
+}
+
+.hdr[data-tone="dark"] .logo-swap .logo--light {
+  opacity: 1;
 }
 
 @media (max-width: 620px) {

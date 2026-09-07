@@ -29,6 +29,7 @@ export function SiteHeader() {
       <header
         className="hdr"
         data-stuck={scrolled && !open}
+        data-tone={tone}
         style={
           {
             "--hdr-fg": dark ? "var(--snow)" : "var(--ink)",
@@ -37,7 +38,7 @@ export function SiteHeader() {
         }
       >
         <div className="hdr__inner">
-          <Wordmark />
+          <Wordmark variant="auto" />
 
           <nav className="hdr__nav" aria-label="Primary">
             {nav.slice(1, -1).map((item) => (

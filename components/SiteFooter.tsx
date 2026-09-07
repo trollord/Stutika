@@ -113,7 +113,7 @@ export function SiteFooter() {
         </p>
 
         <div className="ftr__bottom">
-          <Wordmark />
+          <Wordmark variant="light" />
           <span
             style={{
               fontSize: "0.6875rem",
