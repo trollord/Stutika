@@ -32,7 +32,9 @@ app/
   privacy-policy/       }  both render components/LegalDoc.tsx
   terms-and-conditions/ }  with a sticky clause index
   api/contact/route.ts  enquiry handler
-  icon.svg              favicon
+  favicon.ico           tab icon, 16/32/48 rendered individually
+  icon.png              512px icon
+  apple-icon.png        180px home-screen icon
   opengraph-image.tsx   social share card, generated at build time
 components/
   Band.tsx              the tonal section shell with its numbered rail
@@ -43,7 +45,18 @@ components/
 lib/
   content.ts            ALL site copy, verbatim from the approved document
   hooks.ts              scroll/tone/section-spy hooks
+brand/
+  obiter-mark.webp      the firm's OL monogram, as supplied — source for the icons
 ```
+
+### Regenerating the icons
+
+`app/favicon.ico`, `app/icon.png` and `app/apple-icon.png` are all derived from
+`brand/obiter-mark.webp`. The mark is cropped to its bounding box, its tonal
+range compressed into `#1a1a19`–`#8a8a86` so the pale end of the flourish stays
+visible on the paper background, and each tab size is rendered at its own scale
+with the alpha firmed up rather than being left to browser downscaling. The ICO
+frames must be RGBA — Next's image processor rejects RGB ones.
 
 **All copy lives in `lib/content.ts`.** Edit that file to change any text on the
 site; nothing is hard-coded in the page components.
@@ -126,7 +139,8 @@ else depends on Resend.
 - [ ] Replace the `SRG` monogram plate on the home and founder pages with a
       photograph of Stutika Rathi Gupta once one is supplied
       (`components/Plate.tsx`, `variant="monogram"`).
-- [ ] Apply the firm's logo in place of the type-set wordmark
-      (`components/Wordmark.tsx`, and `app/icon.svg` for the favicon).
+- [ ] Decide whether the OL monogram should also replace the type-set wordmark
+      in the header and footer (`components/Wordmark.tsx`). It is currently used
+      for the icons only.
 - [ ] `site.url` is set to `https://obiterlegal.in`; confirm before launch, as it
       feeds `metadataBase`, the sitemap and `robots.txt`.
