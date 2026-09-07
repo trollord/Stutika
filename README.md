@@ -131,23 +131,38 @@ site uses the `obiterlegal.in` domain; `legalContactEmail` simply follows
 
 ## Enquiry form — needs configuring before launch
 
-`app/api/contact/route.ts` sends enquiries through [Resend](https://resend.com).
-**Until the environment variables below are set, the form returns a 503 and tells
-the visitor to email the firm directly** — it does not silently drop enquiries.
+`app/api/contact/route.ts` posts the enquiry through `lib/mailer.ts`, which
+sends over SMTP with nodemailer. Any provider works — a Google Workspace or
+Gmail app password, Zoho, Brevo, SES.
 
-Create `.env.local`:
+**Until the variables below are set the form returns a 503 and tells the visitor
+to email the firm directly** — it does not silently drop enquiries.
+
+Copy `.env.example` to `.env.local` and fill it in:
 
 ```
-RESEND_API_KEY=re_...
-CONTACT_FROM="Obiter Legal <website@obiterlegal.in>"   # must be a verified sender
-CONTACT_TO=stutika@obiterlegal.in                      # optional, defaults to the address in content.ts
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false          # true for port 465
+SMTP_USER=stutika@obiterlegal.in
+SMTP_PASS=                 # app password, not the account password
+
+ENQUIRY_FROM_EMAIL=stutika@obiterlegal.in   # optional, defaults to SMTP_USER
+ENQUIRY_TO_EMAIL=stutika@obiterlegal.in     # optional, defaults to site.email
 ```
 
-The route validates input, caps field lengths, and drops bot submissions via a
-honeypot field.
+For Gmail or Google Workspace, `SMTP_PASS` must be a 16-character **app
+password** generated under the account's security settings with 2FA enabled —
+the normal account password will be rejected. The same variables need setting in
+the hosting provider's dashboard for the deployed site.
 
-To use a different provider, replace the `fetch` call in that file — nothing
-else depends on Resend.
+The route validates input, caps field lengths, drops bot submissions via a
+honeypot, and rate limits to five enquiries per minute per IP. Enquiries arrive
+as a monochrome HTML email with the sender set as `Reply-To`, so replying goes
+straight back to them.
+
+`.env.local` is gitignored; `.env.example` is committed as the template. Never
+commit real credentials — this repository is public.
 
 ## Before going live
 

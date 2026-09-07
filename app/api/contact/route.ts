@@ -1,4 +1,5 @@
 import { site } from "@/lib/content";
+import { isMailConfigured, sendEnquiryEmail } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -15,11 +16,39 @@ type Payload = {
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Small in-memory rate limit, per warm serverless instance.
+const hits = new Map<string, { count: number; ts: number }>();
+const WINDOW_MS = 60_000;
+const MAX_PER_WINDOW = 5;
+
+function rateLimited(ip: string) {
+  const now = Date.now();
+  const rec = hits.get(ip);
+  if (!rec || now - rec.ts > WINDOW_MS) {
+    hits.set(ip, { count: 1, ts: now });
+    return false;
+  }
+  rec.count += 1;
+  return rec.count > MAX_PER_WINDOW;
+}
+
 function clean(value: unknown, max: number) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 
 export async function POST(request: Request) {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown";
+
+  if (rateLimited(ip)) {
+    return Response.json(
+      { message: "Too many enquiries just now. Please try again shortly." },
+      { status: 429 },
+    );
+  }
+
   let payload: Payload;
   try {
     payload = (await request.json()) as Payload;
@@ -48,15 +77,11 @@ export async function POST(request: Request) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO ?? site.email;
-  const from = process.env.CONTACT_FROM;
-
-  // Not yet wired to a mail provider: say so plainly rather than pretending
-  // the enquiry was delivered.
-  if (!apiKey || !from) {
+  // Not yet wired to a mailbox: say so plainly rather than pretending the
+  // enquiry was delivered.
+  if (!isMailConfigured()) {
     console.warn(
-      "[contact] RESEND_API_KEY / CONTACT_FROM are not set — enquiry not delivered.",
+      "[contact] SMTP_HOST / SMTP_USER / SMTP_PASS are not set — enquiry not delivered.",
       { subject: enquiry.subject, email: enquiry.email },
     );
     return Response.json(
@@ -67,44 +92,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const lines = [
-    `Name:         ${enquiry.name}`,
-    `Organisation: ${enquiry.organisation || "—"}`,
-    `Email:        ${enquiry.email}`,
-    `Phone:        ${enquiry.phone || "—"}`,
-    `Interest:     ${enquiry.subject}`,
-    "",
-    enquiry.message,
-  ].join("\n");
-
   try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: enquiry.email,
-        subject: `Website enquiry — ${enquiry.subject}`,
-        text: lines,
-      }),
-    });
-
-    if (!response.ok) {
-      console.error("[contact] provider rejected the message", {
-        status: response.status,
-        body: await response.text(),
-      });
-      return Response.json(
-        {
-          message: `We could not send that just now. Please write to ${site.email}.`,
-        },
-        { status: 502 },
-      );
-    }
+    await sendEnquiryEmail(enquiry);
   } catch (error) {
     console.error("[contact] delivery failed", error);
     return Response.json(
