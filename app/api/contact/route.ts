@@ -81,7 +81,7 @@ export async function POST(request: Request) {
   // enquiry was delivered.
   if (!isMailConfigured()) {
     console.warn(
-      "[contact] SMTP_HOST / SMTP_USER / SMTP_PASS are not set — enquiry not delivered.",
+      "[contact] MAIL_USER / MAIL_PASS are not set — enquiry not delivered.",
       { subject: enquiry.subject, email: enquiry.email },
     );
     return Response.json(

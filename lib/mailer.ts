@@ -3,41 +3,43 @@ import nodemailer, { type Transporter } from "nodemailer";
 import { site } from "@/lib/content";
 
 /**
- * SMTP transport built from environment variables. Works with any provider —
- * a Gmail/Workspace app password, Zoho, Brevo, SES and so on.
+ * The mailer needs three things and nothing else:
  *
- * Required: SMTP_HOST, SMTP_USER, SMTP_PASS
- * Optional: SMTP_PORT (587), SMTP_SECURE ("true"/"false"),
- *           ENQUIRY_FROM_EMAIL (defaults to SMTP_USER),
- *           ENQUIRY_TO_EMAIL   (defaults to the address in content.ts)
+ *   MAIL_USER  the sending address, which is also the SMTP login
+ *   MAIL_PASS  its app password
+ *   MAIL_TO    where enquiries should land
+ *
+ * Everything else is derived. Gmail and Google Workspace — including custom
+ * domains like obiterlegal.in — both go through smtp.gmail.com, so the host is
+ * inferred rather than configured. MAIL_HOST and MAIL_PORT exist only as an
+ * escape hatch if the mailbox ever moves to another provider.
  */
 
 let cached: Transporter | null = null;
 
 export function isMailConfigured() {
-  return Boolean(
-    process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS,
-  );
+  return Boolean(process.env.MAIL_USER && process.env.MAIL_PASS);
 }
 
 export function getTransport(): Transporter {
   if (cached) return cached;
 
-  const host = process.env.SMTP_HOST;
-  const port = Number(process.env.SMTP_PORT ?? 587);
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const user = process.env.MAIL_USER;
+  const pass = process.env.MAIL_PASS;
 
-  if (!host || !user || !pass) {
+  if (!user || !pass) {
     throw new Error(
-      "SMTP is not configured. Set SMTP_HOST, SMTP_USER and SMTP_PASS in your environment.",
+      "Mail is not configured. Set MAIL_USER and MAIL_PASS in your environment.",
     );
   }
+
+  const host = process.env.MAIL_HOST ?? "smtp.gmail.com";
+  const port = Number(process.env.MAIL_PORT ?? 587);
 
   cached = nodemailer.createTransport({
     host,
     port,
-    secure: process.env.SMTP_SECURE === "true" || port === 465,
+    secure: port === 465,
     auth: { user, pass },
   });
 
@@ -69,8 +71,8 @@ function escapeHtml(value: string) {
 
 export async function sendEnquiryEmail(enquiry: Enquiry) {
   const transport = getTransport();
-  const to = process.env.ENQUIRY_TO_EMAIL || site.email;
-  const from = process.env.ENQUIRY_FROM_EMAIL || process.env.SMTP_USER;
+  const to = process.env.MAIL_TO || site.email;
+  const from = process.env.MAIL_USER;
   const receivedAt = new Date().toLocaleString("en-IN", {
     timeZone: "Asia/Kolkata",
   });

@@ -132,29 +132,27 @@ site uses the `obiterlegal.in` domain; `legalContactEmail` simply follows
 ## Enquiry form — needs configuring before launch
 
 `app/api/contact/route.ts` posts the enquiry through `lib/mailer.ts`, which
-sends over SMTP with nodemailer. Any provider works — a Google Workspace or
-Gmail app password, Zoho, Brevo, SES.
+sends over SMTP with nodemailer from the firm's own mailbox.
 
-**Until the variables below are set the form returns a 503 and tells the visitor
-to email the firm directly** — it does not silently drop enquiries.
+**Until the three values below are set the form returns a 503 and tells the
+visitor to email the firm directly** — it does not silently drop enquiries.
 
-Copy `.env.example` to `.env.local` and fill it in:
+Copy `.env.example` to `.env.local`:
 
 ```
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false          # true for port 465
-SMTP_USER=stutika@obiterlegal.in
-SMTP_PASS=                 # app password, not the account password
-
-ENQUIRY_FROM_EMAIL=stutika@obiterlegal.in   # optional, defaults to SMTP_USER
-ENQUIRY_TO_EMAIL=stutika@obiterlegal.in     # optional, defaults to site.email
+MAIL_USER=stutika@obiterlegal.in   # the sending mailbox, also the SMTP login
+MAIL_PASS=                         # its app password
+MAIL_TO=stutika@obiterlegal.in     # where enquiries are delivered
 ```
 
-For Gmail or Google Workspace, `SMTP_PASS` must be a 16-character **app
-password** generated under the account's security settings with 2FA enabled —
-the normal account password will be rejected. The same variables need setting in
-the hosting provider's dashboard for the deployed site.
+That is the whole configuration. The host is inferred — Gmail and Google
+Workspace, including custom domains, both go through `smtp.gmail.com`. If the
+mailbox ever moves to another provider, `MAIL_HOST` and `MAIL_PORT` override it.
+
+For Gmail or Workspace, `MAIL_PASS` must be the 16-character **app password**
+generated under the account's security settings with 2FA enabled — the normal
+login password will be rejected. The same three variables need setting in the
+hosting provider's dashboard for the deployed site.
 
 The route validates input, caps field lengths, drops bot submissions via a
 honeypot, and rate limits to five enquiries per minute per IP. Enquiries arrive
