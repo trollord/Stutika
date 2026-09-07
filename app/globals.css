@@ -869,11 +869,11 @@ section[id] {
   border-bottom: 1px solid transparent;
 }
 
+/* Solid once scrolled — at anything less the headings underneath ghost
+   through, which reads as a mistake rather than as glass. */
 .hdr[data-stuck="true"] {
-  background: color-mix(in srgb, var(--hdr-bg, var(--paper)) 82%, transparent);
-  backdrop-filter: saturate(140%) blur(14px);
-  -webkit-backdrop-filter: saturate(140%) blur(14px);
-  border-bottom-color: color-mix(in srgb, currentColor 16%, transparent);
+  background: var(--hdr-bg, var(--paper));
+  border-bottom-color: color-mix(in srgb, currentColor 18%, transparent);
 }
 
 .hdr__inner {
