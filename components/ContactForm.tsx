@@ -134,7 +134,7 @@ export function ContactForm() {
         </button>
 
         <p className="enquiry__note">
-          Sending an enquiry does not create an attorney–client relationship. Please
+          Sending an enquiry does not create an advocate client relationship. Please
           do not include confidential information in this message.
         </p>
       </div>
@@ -149,7 +149,7 @@ export function ContactForm() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
           >
-            Thank you — your enquiry has been received. We will revert to the
+            Thank you — your enquiry has been received. We will respond to the
             address you provided.
           </motion.p>
         ) : null}

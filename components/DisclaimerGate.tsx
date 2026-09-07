@@ -92,7 +92,8 @@ export function DisclaimerGate() {
 
                 <div className="gate__actions">
                   <p className="gate__note">
-                    Please confirm that you have read and accept the above.
+                    Please confirm that you have read and accepted the above
+                    disclaimer.
                   </p>
                   <button type="button" className="btn" onClick={accept}>
                     I Agree

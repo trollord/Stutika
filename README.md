@@ -46,6 +46,8 @@ lib/
   content.ts            ALL site copy, verbatim from the approved document
   hooks.ts              scroll/tone/section-spy hooks
 brand/
+  stutika-rathi-gupta.webp        the founder's portrait, greyscale
+  stutika-rathi-gupta-colour.webp the same photograph unaltered
   obiter-mark.webp          the OL monogram, as supplied — source for the icons
   obiter-logo.png           horizontal lockup, for light backgrounds
   obiter-logo-invert.png    the same lockup inverted, for dark backgrounds
@@ -72,6 +74,16 @@ The supplied lockup stacks the monogram over the wordmark, which leaves the
 words illegible at header height. `brand/obiter-logo.png` is therefore a
 horizontal arrangement of the same two elements, with the wordmark set to 24% of
 the monogram's height. The stacked original is kept alongside it.
+
+### The founder's portrait
+
+`components/Portrait.tsx` renders it inside the same hairline frame the plates
+use, cropped with `object-position: 50% 20%` so the face holds at both the 4:5
+crop on `/founder` and the square on the home page.
+
+It is converted to greyscale, since a single colour photograph would be the only
+colour anywhere on the site. `brand/stutika-rathi-gupta-colour.webp` is the
+unaltered original — switch the import in `Portrait.tsx` to use it instead.
 
 ### Regenerating the icons
 
@@ -173,8 +185,5 @@ commit real credentials — this repository is public.
 ## Before going live
 
 - [ ] Configure the enquiry form environment variables above.
-- [ ] Replace the `SRG` monogram plate on the home and founder pages with a
-      photograph of Stutika Rathi Gupta once one is supplied
-      (`components/Plate.tsx`, `variant="monogram"`).
 - [ ] `site.url` is set to `https://obiterlegal.in`; confirm before launch, as it
       feeds `metadataBase`, the sitemap and `robots.txt`.

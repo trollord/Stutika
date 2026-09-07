@@ -44,7 +44,10 @@ export async function POST(request: Request) {
 
   if (rateLimited(ip)) {
     return Response.json(
-      { message: "Too many enquiries just now. Please try again shortly." },
+      {
+        message:
+          "Too many enquiries from this address just now. Please try again shortly.",
+      },
       { status: 429 },
     );
   }

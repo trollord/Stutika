@@ -1760,3 +1760,12 @@ html[data-gate="done"] .gate {
   border: 1px solid var(--rule-light);
   pointer-events: none;
 }
+
+/* Held slightly above centre so the face stays in frame at every crop. */
+.portrait__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+}

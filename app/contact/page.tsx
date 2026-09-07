@@ -70,7 +70,7 @@ export default function ContactPage() {
             <p className="spec__body" style={{ maxWidth: "42ch" }}>
               Enquiries are reviewed by the firm and directed to the relevant
               practice. Nothing on this website, and no communication through it,
-              constitutes legal advice or creates an attorney–client relationship.
+              constitutes legal advice or creates an advocate client relationship.
             </p>
           </div>
 

@@ -14,6 +14,7 @@ import {
 import { Band } from "@/components/Band";
 import { Marquee } from "@/components/Marquee";
 import { Plate } from "@/components/Plate";
+import { Portrait } from "@/components/Portrait";
 import { LineReveal, Reveal, RuleReveal } from "@/components/Reveal";
 import { SectionSpy } from "@/components/SectionSpy";
 import { ArrowAnchor, ArrowLink, SectionHead, SpecGrid } from "@/components/ui";
@@ -217,7 +218,7 @@ export default function HomePage() {
       <Band id="founder" tone="dark" index="06" label="Founder">
         <div className="split" style={{ alignItems: "center" }}>
           <Reveal y={24}>
-            <Plate variant="monogram" ratio="1 / 1" initials="SRG" seed={23} />
+            <Portrait ratio="1 / 1" />
           </Reveal>
 
           <div>

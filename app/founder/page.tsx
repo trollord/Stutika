@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { founder, practices } from "@/lib/content";
 import { Band } from "@/components/Band";
-import { Plate } from "@/components/Plate";
+import { Portrait } from "@/components/Portrait";
 import { Reveal, RuleReveal } from "@/components/Reveal";
 import { NextPage } from "@/components/ui";
 
@@ -61,12 +61,7 @@ export default function FounderPage() {
               </div>
 
               <Reveal delay={0.24} y={28}>
-                <Plate
-                  variant="monogram"
-                  ratio="4 / 5"
-                  initials="SRG"
-                  seed={11}
-                />
+                <Portrait ratio="4 / 5" />
               </Reveal>
             </div>
           </div>
