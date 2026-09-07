@@ -16,8 +16,6 @@ export type Practice = {
 
 export const site = {
   name: "Obiter Legal",
-  wordmark: "Obiter",
-  wordmarkTail: "Legal",
   tagline: "Commercially Focused Legal Counsel for Business",
   description:
     "Obiter Legal is a boutique law firm advising businesses, founders, investors and creators across corporate, commercial, capital markets, media and entertainment, intellectual property, real estate and regulatory matters.",

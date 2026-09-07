@@ -4,6 +4,7 @@ import { useRef, useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { DISCLAIMER_PARAGRAPHS, site } from "@/lib/content";
+import { Logo } from "@/components/Wordmark";
 
 const STORAGE_KEY = "obiter-disclaimer-accepted";
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -75,10 +76,7 @@ export function DisclaimerGate() {
             </aside>
 
             <div className="gate__head">
-              <span className="wordmark">
-                <span className="wordmark__mark">{site.wordmark}</span>
-                <span className="wordmark__tail">{site.wordmarkTail}</span>
-              </span>
+              <Logo />
               <span className="u-label" id="gate-title">
                 {stage === "declined" ? "Access Declined" : "Disclaimer"}
               </span>

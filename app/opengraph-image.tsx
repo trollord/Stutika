@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 import { site } from "@/lib/content";
@@ -6,7 +8,10 @@ export const alt = `${site.name} — ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  const logo = await readFile(join(process.cwd(), "brand/obiter-logo.png"));
+  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -29,16 +34,7 @@ export default function OpengraphImage() {
             justifyContent: "space-between",
           }}
         >
-          <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
-            <span style={{ fontSize: 40, fontFamily: "Georgia, serif" }}>
-              Obiter
-            </span>
-            <span
-              style={{ fontSize: 17, letterSpacing: 7, color: "#8d8d88" }}
-            >
-              LEGAL
-            </span>
-          </div>
+          <img src={logoSrc} alt={site.name} height={72} />
           <span style={{ fontSize: 17, letterSpacing: 6, color: "#8d8d88" }}>
             MUMBAI, INDIA
           </span>

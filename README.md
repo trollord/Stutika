@@ -46,8 +46,24 @@ lib/
   content.ts            ALL site copy, verbatim from the approved document
   hooks.ts              scroll/tone/section-spy hooks
 brand/
-  obiter-mark.webp      the firm's OL monogram, as supplied — source for the icons
+  obiter-mark.webp          the OL monogram, as supplied — source for the icons
+  obiter-logo.png           horizontal lockup used in the header, footer and gate
+  obiter-logo-stacked.png   the supplied stacked lockup, for wider slots
 ```
+
+### The logo
+
+The artwork is dark, so it carries a paper-coloured plate baked into the PNG.
+That way it can never land on a black background — over the light bands the
+plate disappears into the page, and over the dark bands and the footer it reads
+as a paper card. `components/Wordmark.tsx` exports `Logo` (the image) and
+`Wordmark` (the same image linked home); both are used in the header, the footer
+and the disclaimer gate, and the share card embeds it too.
+
+The supplied lockup stacks the monogram over the wordmark, which leaves the
+words illegible at header height. `brand/obiter-logo.png` is therefore a
+horizontal arrangement of the same two elements, with the wordmark set to 24% of
+the monogram's height. The stacked original is kept alongside it.
 
 ### Regenerating the icons
 
@@ -139,8 +155,5 @@ else depends on Resend.
 - [ ] Replace the `SRG` monogram plate on the home and founder pages with a
       photograph of Stutika Rathi Gupta once one is supplied
       (`components/Plate.tsx`, `variant="monogram"`).
-- [ ] Decide whether the OL monogram should also replace the type-set wordmark
-      in the header and footer (`components/Wordmark.tsx`). It is currently used
-      for the icons only.
 - [ ] `site.url` is set to `https://obiterlegal.in`; confirm before launch, as it
       feeds `metadataBase`, the sitemap and `robots.txt`.
