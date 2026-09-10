@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Inter, Instrument_Serif } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 import { site } from "@/lib/content";
@@ -101,6 +102,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteFooter />
         <span className="grain" aria-hidden="true" />
         <DisclaimerGate />
+        <Analytics />
       </body>
     </html>
   );
